@@ -12,8 +12,8 @@ jobs:
       - name: install figlet
         run: sudo apt install figlet
 
-      - name: generate cool banner into andoid.txt
-        run: figlet "android club insat"
+      - name: generate cool banner into android.txt
+        run: figlet "android club insat" >> android.txt
 
       - name: list files
         run: ls

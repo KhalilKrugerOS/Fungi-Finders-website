@@ -1,0 +1,25 @@
+name: my cool banner
+
+on: push
+
+jobs:
+  fist-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install figlet
+        run: sudo apt install figlet
+
+      - name: generate cool banner into andoid.txt
+        run: figlet "android club insat"
+
+      - name: list files
+        run: ls
+
+      - name: Test file
+        run: grep -i "android" android.txt
+
+      - name: show file
+        run: cat android.txt

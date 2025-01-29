@@ -1,0 +1,36 @@
+name: multiple-job
+
+on: push
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker build
+        env:
+          CONTAINER_REGISTRY: docker.io
+          DOCKER_USERNAME: Instatien
+          IMAGE_NAME: mywebapp
+        run: echo docker build -t ${{ env.CONTAINER_REGISTRY }}.$DOCKER_USERNAME.$IMAGE_NAME:latest
+
+      - name: Docker login
+        env:
+          DOCKER_USERNAME: Instatien
+          DOCKER_PASSWORD: mywebapp
+        run: echo docker login -username=${{ env.DOCKER_USERNAME }} --password=${{ env.DOCKER_PASSWORD }}
+
+      - name: Docker push
+        env:
+          CONTAINER_REGISTRY: docker.io
+          DOCKER_USERNAME: Instatien
+          IMAGE_NAME: mywebapp
+        run: echo docker push ${{ env.CONTAINER_REGISTRY }}.$DOCKER_USERNAME.$IMAGE_NAME:latest
+
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: DEPLOY APPLICATION
+        run: echo deploying... |
+          sleep 10 |
+          echo deployed !
